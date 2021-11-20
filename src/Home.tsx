@@ -4,6 +4,7 @@ import Countdown from "react-countdown";
 import { Button, CircularProgress, Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
+
 import * as anchor from "@project-serum/anchor";
 
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -16,8 +17,10 @@ import {
   awaitTransactionSignatureConfirmation,
   getCandyMachineState,
   mintOneToken,
+  // eslint-disable-next-line
   shortenAddress,
 } from "./candy-machine";
+
 
 const ConnectButton = styled(WalletDialogButton)``;
 
@@ -37,13 +40,16 @@ export interface HomeProps {
 }
 
 const Home = (props: HomeProps) => {
+  // eslint-disable-next-line
   const [balance, setBalance] = useState<number>();
   const [isActive, setIsActive] = useState(false); // true when countdown completes
   const [isSoldOut, setIsSoldOut] = useState(false); // true when items remaining is zero
   const [isMinting, setIsMinting] = useState(false); // true when user got to press MINT
 
   const [itemsAvailable, setItemsAvailable] = useState(0);
+  // eslint-disable-next-line
   const [itemsRedeemed, setItemsRedeemed] = useState(0);
+  // eslint-disable-next-line
   const [itemsRemaining, setItemsRemaining] = useState(0);
 
   const [alertState, setAlertState] = useState<AlertState>({
@@ -167,21 +173,34 @@ const Home = (props: HomeProps) => {
 
   return (
     <main>
-      {wallet && (
+<div className='mint-container2'> 
+<div className='gif'>
+      <img src='https://i.ibb.co/Y3PmY39/Mooshi-World-Preview.gif' alt='Mooshi' className='resize'></img>
+      </div>
+    <div className='description'>
+    Mooshi World
+      </div>
+
+
+      
+      <div className='mint-container'> 
+      
+     
+    {/*  {wallet && (
         <p>Wallet {shortenAddress(wallet.publicKey.toBase58() || "")}</p>
       )}
 
-      {wallet && <p>Balance: {(balance || 0).toLocaleString()} SOL</p>}
+    {wallet && <p>Balance: {(balance || 0).toLocaleString()} SOL</p>}  */}
 
-      {wallet && <p>Total Available: {itemsAvailable}</p>}
+     
 
-      {wallet && <p>Redeemed: {itemsRedeemed}</p>}
+    {/*  {wallet && <p>Redeemed: {itemsRedeemed}</p>} 
 
-      {wallet && <p>Remaining: {itemsRemaining}</p>}
+  {wallet && <p>Remaining: {itemsRemaining}/1337</p>} */}
 
-      <MintContainer>
+      <MintContainer> 
         {!wallet ? (
-          <ConnectButton>Connect Wallet</ConnectButton>
+          <ConnectButton>CONNECT WALLET</ConnectButton>
         ) : (
           <MintButton
             disabled={isSoldOut || isMinting || !isActive}
@@ -194,7 +213,7 @@ const Home = (props: HomeProps) => {
               isMinting ? (
                 <CircularProgress />
               ) : (
-                "MINT"
+                "MINT A MOOSHI"
               )
             ) : (
               <Countdown
@@ -205,8 +224,12 @@ const Home = (props: HomeProps) => {
               />
             )}
           </MintButton>
-        )}
-      </MintContainer>
+        )}  {wallet && <div className='remaining'>{itemsAvailable} / 1337</div>}
+        {wallet &&  <div className='mintprice'>Mint Price: 0.13 SOL</div>}
+      </MintContainer> 
+
+   </div>
+   </div>
 
       <Snackbar
         open={alertState.open}
